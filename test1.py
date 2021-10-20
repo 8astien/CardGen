@@ -16,3 +16,4 @@ editableCard.text((375,80), spellName, passiveColor, font = titleFont, anchor = 
 editableCard.text((375,700), spellType, forceColor, font = Font, anchor = 'ms', stroke_width = 2, stroke_fill = outline) # Type of the card, below artwork
 
 cardTemplate.save('Cards/'+spellType+'_'+spellName+'.png') # Save file in Card folder
+print('Created card succesfully !')
