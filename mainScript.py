@@ -13,12 +13,12 @@ intelligenceColor = ('#43C3E7')
 passiveColor = ('#DFDEDF')
 outline = ('#333333')
 
-
 maxWidth = 750
 bckgImage = Image.open("ressources/sap.jpg").convert("RGBA") # background image
 wPercent = (maxWidth/float(bckgImage.size[0])) # calculate ratio width between the max width and the width of the image
 newSize = int((float(bckgImage.size[1])*float(wPercent))) #Store the calculated height ratio
 bckgImage = bckgImage.resize((maxWidth,newSize), Image.ANTIALIAS) #apply new ratio to var
+
 
 def add_margin(bckgImage, top, right, bottom, left, color): # creating add_margin function for later use
     width, height = bckgImage.size
