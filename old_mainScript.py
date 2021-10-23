@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 import textwrap
+#import interface
+#from interface import *
 from PIL import Image, ImageFont, ImageDraw, ImageOps
-
 
 cardTemplate = Image.open("ressources/GeneralTemplate.png").convert("RGBA") # This is the general PNG template used for cards
 titleFont = ImageFont.truetype('ressources/enchantedLand.otf', 60)
 typeFont = ImageFont.truetype('ressources/Roboto-Regular.ttf', 30)
 descFont = ImageFont.truetype('ressources/Roboto-Regular.ttf', 26)
+statFont = ImageFont.truetype('ressources/enchantedLand.otf', 80)
+
 # fonts color variables
 forceColor = ('#EA2727')
 agilityColor = ('#E7E743')
@@ -32,7 +35,7 @@ def add_margin(bckgImage, top, right, bottom, left, color): # creating add_margi
 bckgImage = add_margin(bckgImage, 0, 0, (1050-newSize), 0, (120, 120, 120)) # add a botoom margin calculated to fit template
 
 # content of the card, declared here by var but will get modified once called file is loaded
-spellName = "TEST CARD USED FOR TESTING"
+spellName = "TEST dmgmana"
 spellType = "PASSIF"
 spellDesc = "This is a test card, using wrap in order for the text not to go out of the card template otherwise it swould be cringe bro."
 
@@ -50,8 +53,19 @@ editableCard.text((375,80), spellName, passiveColor, font = titleFont, anchor = 
 editableCard.text((375,700), spellType, passiveColor, font = typeFont, anchor = 'ms', stroke_width = 2, stroke_fill = outline) # Type of the card, below artwork
 editableCard.text((40,750), spellDescWrapped, '#333232', font = descFont, anchor = 'ls')
 
+#------------------------------------------------------------------------------
+#DAMAGE AND MANA
+diceNbr = '2'
+diceType = 'd6'
+dmgBonus = '+'+'2'
+editableCard.text((100, 1000), diceNbr+diceType+dmgBonus, forceColor, font = statFont, anchor = 'ms', stroke_width = 3, stroke_fill = outline) # Title of the card, big text on top
+
+manaPool = '19'
+editableCard.text((685, 1000), manaPool, intelligenceColor, font = statFont, anchor = 'ms', stroke_width = 3, stroke_fill = outline)
+#------------------------------------------------------------------------------
+
 bckgImage.paste(cardTemplate, (0, 0), cardTemplate)
 
 bckgImage.save('Cards/'+spellType+'_'+spellName+'.png') # Save file in Card folder
 
-print('Created card succesfully !')
+#print('Created card succesfully !')
