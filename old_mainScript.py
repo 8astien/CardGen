@@ -66,6 +66,6 @@ editableCard.text((685, 1000), manaPool, intelligenceColor, font = statFont, anc
 
 bckgImage.paste(cardTemplate, (0, 0), cardTemplate)
 
-bckgImage.save('Cards/'+spellType+'_'+spellName+'.png') # Save file in Card folder
+#bckgImage.save('Cards/'+spellType+'_'+spellName+'.png') # Save file in Card folder
 
 #print('Created card succesfully !')
