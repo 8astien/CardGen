@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import textwrap
+#import interface
+#from interface import *
 from PIL import Image, ImageFont, ImageDraw, ImageOps
-
 
 cardTemplate = Image.open("ressources/GeneralTemplate.png").convert("RGBA") # This is the general PNG template used for cards
 titleFont = ImageFont.truetype('ressources/enchantedLand.otf', 60)
@@ -52,6 +53,6 @@ editableCard.text((40,750), spellDescWrapped, '#333232', font = descFont, anchor
 
 bckgImage.paste(cardTemplate, (0, 0), cardTemplate)
 
-bckgImage.save('Cards/'+spellType+'_'+spellName+'.png') # Save file in Card folder
+#bckgImage.save('Cards/'+spellType+'_'+spellName+'.png') # Save file in Card folder
 
-print('Created card succesfully !')
+#print('Created card succesfully !')
