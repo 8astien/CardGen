@@ -2,6 +2,7 @@
 import textwrap
 from PIL import Image, ImageFont, ImageDraw, ImageOps
 
+
 cardTemplate = Image.open("ressources/GeneralTemplate.png").convert("RGBA") # This is the general PNG template used for cards
 titleFont = ImageFont.truetype('ressources/enchantedLand.otf', 60)
 typeFont = ImageFont.truetype('ressources/Roboto-Regular.ttf', 30)
