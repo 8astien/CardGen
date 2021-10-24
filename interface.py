@@ -14,7 +14,7 @@ window = Tk() #create a window
 inputSpell = Entry(window, text="", bd=5)
 inputSpell.place(x=1150, y=50)
 
-inputDesc = Text(window , width=40 , height=10)
+inputDesc = Text(window , width=30 , height=8)
 inputDesc.place(x=1150, y=150 )
 
 dropDamage = ttk.Combobox(window,
@@ -157,12 +157,15 @@ def save():
     getMana(editableCard)
     editCard(spellName , spellType , editableCard)
     img = ImageTk.PhotoImage(Image.open("./ressources/GeneralTemplate.png"))
-    canvas.config(img)
+    #canvas.config(img)
     bckgImage.paste(cardTemplate, (0, 0), cardTemplate)
     bckgImage.save('Cards/'+spellType+'_'+spellName+'.png')
-    print('Test finish')
+    popUp = Toplevel(window)
+    popUp.title("Success !")
+    popUp.geometry("400x250")
+    saveLabel = Label(popUp, text = "Created card succesfully !")
+    saveLabel.place(x=100, y=100)
 
-    print('Created card succesfully !')
 
 btn = Button(window,text="Generer" ,command=save)
 btn.place(x=1200, y=550)
