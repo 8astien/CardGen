@@ -1,7 +1,7 @@
-from os import wait
+from os import name, wait
 import tkinter
 from tkinter import *
-from tkinter import Text,ttk
+from tkinter import Text,ttk , filedialog 
 from PIL import Image, ImageFont, ImageDraw, ImageOps,ImageTk
 import textwrap
 
@@ -59,15 +59,11 @@ dropType.grid(column=0, row=1)
 dropType.place(x=1150 ,y=100)
 dropType.current(0)
 
-canvas = Canvas(window , width=750 , height=1050)
-canvas.place(x=100 , y= 0)
-#img = PhotoImage(file="./ressources/GeneralTemplate.png")
-#canvas.create_image(20,20, anchor=NW, image=img)
 #================================== UI Elements ===========================================================
 
 #================================================================================================================
 
-cardTemplate = Image.open("ressources/GeneralTemplate.png").convert("RGBA") # This is the general PNG template used for cards
+#cardTemplate = Image.open("ressources/GeneralTemplate.png").convert("RGBA") # This is the general PNG template used for cards
 titleFont = ImageFont.truetype('ressources/enchantedLand.otf', 60)
 typeFont = ImageFont.truetype('ressources/Roboto-Regular.ttf', 30)
 descFont = ImageFont.truetype('ressources/Roboto-Regular.ttf', 26)
@@ -80,13 +76,15 @@ intelligenceColor = ('#43C3E7')
 passiveColor = ('#DFDEDF')
 outline = ('#333333')
 
-editableCard = ImageDraw.Draw(cardTemplate)
+nameCard:filedialog
 
-maxWidth = 750
-bckgImage = Image.open("ressources/sap.jpg").convert("RGBA") # background image
-wPercent = (maxWidth/float(bckgImage.size[0])) # calculate ratio width between the max width and the width of the image
-newSize = int((float(bckgImage.size[1])*float(wPercent))) #Store the calculated height ratio
-bckgImage = bckgImage.resize((maxWidth,newSize), Image.ANTIALIAS) #apply new ratio to var
+#editableCard = ImageDraw.Draw(cardTemplate)
+
+#maxWidth = 750
+#bckgImage = ""#Image.open("ressources/sap.jpg").convert("RGBA") # background image
+#wPercent = (maxWidth/float(bckgImage.size[0])) # calculate ratio width between the max width and the width of the image
+#newSize = int((float(bckgImage.size[1])*float(wPercent))) #Store the calculated height ratio
+#bckgImage = bckgImage.resize((maxWidth,newSize), Image.ANTIALIAS) #apply new ratio to var
 
 def add_margin(bckgImage, top, right, bottom, left, color): # creating add_margin function for later use
     width, height = bckgImage.size
@@ -96,9 +94,17 @@ def add_margin(bckgImage, top, right, bottom, left, color): # creating add_margi
     result.paste(bckgImage, (left, top))
     return result
 
-bckgImage = add_margin(bckgImage, 0, 0, (1050-newSize), 0, (120, 120, 120)) # add a botoom margin calculated to fit template
+#bckgImage = add_margin(bckgImage, 0, 0, (1050-newSize), 0, (120, 120, 120)) # add a botoom margin calculated to fit template
 
 # Using a wrapper for desc as it is usually long texts.
+
+def initTemplate():
+    cardTemplate  = Image.open("ressources/GeneralTemplate.png").convert("RGBA") # This is the general PNG template used for cards
+    return cardTemplate
+
+def modifCard(cardTemplate):
+    editableCard = ImageDraw.Draw(cardTemplate)
+    return editableCard
 
 def getSpellName():
     return inputSpell.get()
@@ -118,7 +124,6 @@ def getDesc(editCard):
     return spellDesc
 
 def getDamage(editCard):
-    print("Test bonus : " + inputBonusDamage.get())
     if(inputBonusDamage.get() != ""):
         editCard.text((100, 1000), dropDamage.get()+dropDice.get()+"+"+inputBonusDamage.get(), forceColor, font = statFont, anchor = 'ms', stroke_width = 3, stroke_fill = outline) # Title of the card, big text on top
     else:
@@ -128,9 +133,6 @@ def getMana(editCard):
     editCard.text((685, 1000), inputMana.get(), intelligenceColor, font = statFont, anchor = 'ms', stroke_width = 3, stroke_fill = outline)
 
 def editCard(nameSpell, typeSpell , editCard):
-    editCard = ImageDraw.Draw(cardTemplate)
-
-    print('TypeSpell : ' + typeSpell)
 
     match typeSpell:
         case "Force":
@@ -147,26 +149,46 @@ def editCard(nameSpell, typeSpell , editCard):
             editCard.text((375,700), typeSpell, passiveColor, font = typeFont, anchor = 'ms', stroke_width = 2, stroke_fill = outline) # Type of the card, below artwork
 
 #=================================================================================================================
+def loadBack():
+    global nameCard
+    nameCard = filedialog.askopenfilename() 
+    return nameCard
+   
+def changeBck(name):
+    maxWidth = 750
+    print("Name card : " + name)
+    bckgImage = Image.open(name).convert("RGBA")
+    wPercent = (maxWidth/float(bckgImage.size[0])) 
+    newSize = int((float(bckgImage.size[1])*float(wPercent))) 
+    bckgImage = bckgImage.resize((maxWidth,newSize), Image.ANTIALIAS) 
+    bckgImage = add_margin(bckgImage, 0, 0, (1050-newSize), 0, (120, 120, 120))
+
+    return bckgImage
 
 def save():
 
+    bckgImage = changeBck(nameCard)
+
+    cardTemplate = initTemplate()
+    editableCard = modifCard(cardTemplate)
+
     spellName = getSpellName()
     spellType = getSpellType()
-    spellDesc = getDesc(editableCard)
+    getDesc(editableCard)
     getDamage(editableCard)
     getMana(editableCard)
     editCard(spellName , spellType , editableCard)
-    img = ImageTk.PhotoImage(Image.open("./ressources/GeneralTemplate.png"))
-    #canvas.config(img)
     bckgImage.paste(cardTemplate, (0, 0), cardTemplate)
     bckgImage.save('Cards/'+spellType+'_'+spellName+'.png')
+   
     popUp = Toplevel(window)
     popUp.title("Success !")
     popUp.geometry("400x250")
     saveLabel = Label(popUp, text = "Created card succesfully !")
     saveLabel.place(x=100, y=100)
 
-
+loadFile = Button(window,text="Choose file" ,command=loadBack)
+loadFile.place(x=1000, y=550)
 btn = Button(window,text="Generer" ,command=save)
 btn.place(x=1200, y=550)
 labelName = Label(window, text = "Card Name")
