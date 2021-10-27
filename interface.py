@@ -1,7 +1,7 @@
 from os import name, wait
 import tkinter
 from tkinter import *
-from tkinter import Text,ttk , filedialog 
+from tkinter import Text,ttk , filedialog
 from PIL import Image, ImageFont, ImageDraw, ImageOps,ImageTk
 import textwrap
 
@@ -12,10 +12,10 @@ window = Tk() #create a window
 #================================== UI Elements ===========================================================
 
 inputSpell = Entry(window, text="", bd=5)
-inputSpell.place(x=1150, y=50)
+inputSpell.place(x=400, y=50)
 
 inputDesc = Text(window , width=30 , height=8)
-inputDesc.place(x=1150, y=150 )
+inputDesc.place(x=400, y=150 )
 
 dropDamage = ttk.Combobox(window,
                             values=[
@@ -27,7 +27,7 @@ dropDamage = ttk.Combobox(window,
                                     "6"])
 print(dict(dropDamage))
 dropDamage.grid(column=0, row=1)
-dropDamage.place(x=1150 ,y=350)
+dropDamage.place(x=400 ,y=350)
 dropDamage.current(0)
 
 dropDice = ttk.Combobox(window,
@@ -39,14 +39,14 @@ dropDice = ttk.Combobox(window,
                                     "d12"])
 print(dict(dropDice))
 dropDice.grid(column=0, row=1)
-dropDice.place(x=1150 ,y=400)
+dropDice.place(x=400 ,y=400)
 dropDice.current(0)
 
 inputBonusDamage = Entry(window, text="", bd=5)
-inputBonusDamage.place(x=1150, y=450)
+inputBonusDamage.place(x=400, y=450)
 
 inputMana = Entry(window, text="", bd=5)
-inputMana.place(x=1150, y=500)
+inputMana.place(x=400, y=500)
 
 dropType = ttk.Combobox(window,
                             values=[
@@ -56,7 +56,7 @@ dropType = ttk.Combobox(window,
                                     "Passif"])
 print(dict(dropType))
 dropType.grid(column=0, row=1)
-dropType.place(x=1150 ,y=100)
+dropType.place(x=400 ,y=100)
 dropType.current(0)
 
 #================================== UI Elements ===========================================================
@@ -151,16 +151,16 @@ def editCard(nameSpell, typeSpell , editCard):
 #=================================================================================================================
 def loadBack():
     global nameCard
-    nameCard = filedialog.askopenfilename() 
+    nameCard = filedialog.askopenfilename()
     return nameCard
-   
+
 def changeBck(name):
     maxWidth = 750
     print("Name card : " + name)
     bckgImage = Image.open(name).convert("RGBA")
-    wPercent = (maxWidth/float(bckgImage.size[0])) 
-    newSize = int((float(bckgImage.size[1])*float(wPercent))) 
-    bckgImage = bckgImage.resize((maxWidth,newSize), Image.ANTIALIAS) 
+    wPercent = (maxWidth/float(bckgImage.size[0]))
+    newSize = int((float(bckgImage.size[1])*float(wPercent)))
+    bckgImage = bckgImage.resize((maxWidth,newSize), Image.ANTIALIAS)
     bckgImage = add_margin(bckgImage, 0, 0, (1050-newSize), 0, (120, 120, 120))
 
     return bckgImage
@@ -180,7 +180,7 @@ def save():
     editCard(spellName , spellType , editableCard)
     bckgImage.paste(cardTemplate, (0, 0), cardTemplate)
     bckgImage.save('Cards/'+spellType+'_'+spellName+'.png')
-   
+
     popUp = Toplevel(window)
     popUp.title("Success !")
     popUp.geometry("400x250")
@@ -188,27 +188,27 @@ def save():
     saveLabel.place(x=100, y=100)
 
 loadFile = Button(window,text="Choose file" ,command=loadBack)
-loadFile.place(x=1000, y=550)
+loadFile.place(x=100, y=550)
 btn = Button(window,text="Generer" ,command=save)
-btn.place(x=1200, y=550)
+btn.place(x=500, y=550)
 labelName = Label(window, text = "Card Name")
-labelName.place(x=950, y=50)
+labelName.place(x=100, y=50)
 labelType = Label(window, text = "Card Type")
-labelType.place(x=950, y=100)
+labelType.place(x=100, y=100)
 labelDesc = Label(window, text = "Card Description")
-labelDesc.place(x=950, y=150)
+labelDesc.place(x=100, y=150)
 labelDamage = Label(window, text = "Damage")
-labelDamage.place(x=950, y=350)
+labelDamage.place(x=100, y=350)
 labelDice = Label(window, text = "Dice")
-labelDice.place(x=950, y=400)
+labelDice.place(x=100, y=400)
 labelMana = Label(window, text = "Mana")
-labelMana.place(x=950, y=500)
+labelMana.place(x=100, y=500)
 labelBonusD = Label(window, text = "Bonus Damage")
-labelBonusD.place(x=950, y=450)
+labelBonusD.place(x=100, y=450)
 #================================== UI Window ===========================================================
 
 window.title('CardGen pre-release version 0.000000000432')
-window.geometry("1500x1050+10+20")
+window.geometry("750x650+10+20")
 window.mainloop() #mainloop displays the window
 
 #================================== UI Window ===========================================================
