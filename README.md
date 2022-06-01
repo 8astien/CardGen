@@ -4,7 +4,7 @@ Pyhton Project - made with Python 3.10, tkinter and Pillow
 
 This software generate cards for a custom RPG game 
 
-In order to luanch the software, you need to install dependencies in their Python 3.10 version : 
+In order to launch the software, you need to install dependencies in their Python 3.10 version : 
 
 ```
 sudo apt install python3.10-tk
