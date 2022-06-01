@@ -1,6 +1,6 @@
 # CardGen
 
-Pyhton Project - made with Python 3.10, tkinter and Pillow 
+Python Project - made with Python 3.10, tkinter and Pillow 
 
 This software generate cards for a custom RPG game 
 
@@ -18,3 +18,7 @@ Then run it :
 ```
 python3.10 interface.py
 ```
+
+Once every field is filled, you can import an image for your card. 
+
+A pop-up window wil lconfirm the generation of your card, it will be placed in the card folder
