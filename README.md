@@ -21,4 +21,6 @@ python3.10 interface.py
 
 Once every field is filled, you can import an image for your card. 
 
-A pop-up window wil lconfirm the generation of your card, it will be placed in the card folder
+A pop-up window will confirm the successfull generation of your card.
+
+Generated cards are placed in the Cards folder at the root of the project. 
